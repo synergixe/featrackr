@@ -14,39 +14,41 @@
  
  class LaunchRouter {
   
-   protected $context;
+   protected $;
      
-     public function __construct(LaunchContext $context){
-         $this->context = $context;
+     public function __construct(){
+      
      }
  }
 
 
 /*
 
-Morpheec::launch("new_feature")->andLock(
-  
-);
+$toggle->launch("new_feature")->andLock(); // retrieves the manager | launches a feature and locks it
 
-Morpheec::feature("old_feature")->create(); // creating a new feature
+$toggle->feature("old_feature")->getOrCreate(); // instantiates a feature | creating a new feature if it's not available
+
 
 Morpheec::aim("markets")->using([
 'Lagos', 'Abuja'
-])->atFeature("incomplete_feature");
+])->atFeature("incomplete_feature"); // instantiates an aim | creates a new aim
 
 Morpheec::defineStrategy("markets", function(LaunchContext $context){
+   
    if($context->hasUser()){
       $ip = $context->getClientRequest()->ip();
    }
    
-   foreach($context->currentFeature->getAims() as $aim){
-      if(in_array($aim->getUsageSet(), $context->getUser()->market)
-   }
-   return $context->getAimsFor("")->isAdmin();
-})->for("nice_feature");
+   $belongsToMarket = in_array(
+          $context->getAim()
+                  ->getUsageData(), 
+                  $context->getUser()->market
+          );
+       
+   return $context->getUser()->isAdmin() || $belongsToMarket;
+})->for("nice_feature"); // instantiates a strategy
 
 
 |$this->getStrategy()
 
-$user-
-$user->canLaunchFeature($aim, $strategyName) */
+*/
