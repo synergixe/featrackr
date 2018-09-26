@@ -34,16 +34,54 @@ class LaunchRouter {
 
 /*
 
-$morpheec->launch("new_feature")->andLock(); // retrieves the manager | launches a feature and locks it
+
+use Illuminate\Database\Connection | $app['db.connection']  
+use Illuminate\Redis\Connections\Connection | $app['redis.connection']
+
+
+$app['config']['morpheec'];
+
+$storage = new Storage($app);
+
+
+protected: $storage->addHandler(BackendHandlerInterface $handler);
+
+$redisHandler->setConnection($app['redis.connection']);
+$databaseHandler->setConnection($app['db.connection']);
+
+->persist();
+->retrieve();
+->erase([$featureName = null]);
+->toggle();
+
+
+new LaunchRouter($storage);
+
+$router->setEnv($app['environment']);
+
+$manager = new Manager($router);
+
+$manager->set
+
+$manager->getRouter()->getStorage()->persist();
+
+Morpheec::createToggle($manager);
+
+*/
+
+
+/*
+
+$morpheec->launch("new_feature")->using("markets"); // retrieves the manager | launches a feature and locks it
 
 $morpheec->feature("old_feature")->getOrCreate(); // instantiates a feature | creating a new feature if it's not available
 
 
-Morpheec::aim("markets")->using([
+Morpheec::aim("markets")->with([
 'Lagos', 'Abuja'
 ])->atFeature("incomplete_feature"); // instantiates an aim | creates a new aim
 
-Morpheec::defineStrategy("markets", function(LaunchContext $context){
+Morpheec::defineStrategy(function(LaunchContext $context){
    
    if($context->hasUser()){
       $ip = $context->getClientRequest()->ip();
@@ -51,12 +89,12 @@ Morpheec::defineStrategy("markets", function(LaunchContext $context){
    
    $belongsToMarket = in_array(
           $context->getAim()
-                  ->getUsageData(), 
+                    ->getData(), 
                   $context->getUser()->market
           );
        
    return $context->getUser()->isAdmin() || $belongsToMarket;
-})->for("nice_feature"); // instantiates a strategy
+})->as("markets"); // instantiates a strategy
 
 
 |$this->getStrategy()
