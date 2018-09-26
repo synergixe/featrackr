@@ -11,22 +11,32 @@
  *
  */
  
+namepsace Synergixe\Morpheec\Components\Features;
+
  
- class LaunchRouter {
+class LaunchRouter {
   
-   protected $;
+   protected $storage;
      
-     public function __construct(){
-      
+     public function __construct(Storage $storage){
+          
+         $this->storage = $storage;
+     }
+  
+     public function getConfig($env = null){
+     
+         $config = $this->storage->getConfig();
+         
+         return array_key_exists($config, $env) ? $config[$env] : $config;
      }
  }
 
 
 /*
 
-$toggle->launch("new_feature")->andLock(); // retrieves the manager | launches a feature and locks it
+$morpheec->launch("new_feature")->andLock(); // retrieves the manager | launches a feature and locks it
 
-$toggle->feature("old_feature")->getOrCreate(); // instantiates a feature | creating a new feature if it's not available
+$morpheec->feature("old_feature")->getOrCreate(); // instantiates a feature | creating a new feature if it's not available
 
 
 Morpheec::aim("markets")->using([
